@@ -565,16 +565,17 @@ class FileManager:
         self.fileName   = fileName
         self.maxEntries = maxEntries
         self.counter    = 0
-        if self.fileName != "": self.f = open(self.fileName,'ab')
+        # if self.fileName != "": self.f = open(self.fileName,'ab')
+        self.f = None
         
     def switchOutFile(self):
-        self.f.close()
+        if self.counter != 0: self.f.close()
         self.fileName = '.'.join([
             str(s) for s in self.baseName.split('.')[:-1]]) + "_" + str(int(self.counter//self.maxEntries)) + "." + self.baseName.split('.')[-1]
         self.f = open(self.fileName,'ab')
 
     def append(self,config,lattice,beta,t,mu,obs=["N","E","ET","W","W2"],fmt='%f',delimiter='\t'):
-        if self.counter>0 and self.counter % self.maxEntries == 0: self.switchOutFile()
+        if self.counter % self.maxEntries == 0: self.switchOutFile()
         header = ''
         if self.counter % self.maxEntries == 0: header = delimiter.join([o for o in obs])
         else: header = ''
