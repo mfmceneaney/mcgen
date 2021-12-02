@@ -627,7 +627,7 @@ class Generator:
         self.mu   = mu
         self.e    = e
         self.beta = beta
-        self.k    = beta/e # of timesteps
+        self.k    = int(round(beta/e)) # of timesteps #NOTE: avoid rounding errors with int
         self.N    = N
         
         self.seedConfig  = Configuration(self.k,self.N)
