@@ -209,7 +209,7 @@ def ensAve(h,o,b=12):
                  ))
     return ave
 
-def plotEnsAveVsMu(o,t,muRange,muStep,b,N=2,d=3,ylabel="<n>",figsize=(16,10)):
+def plotEnsAveVsMu(o,t,muRange,muStep,b,N=2,d=3,ylabel="<n>",figsize=(8,5)):
     
     """
     Arguments:
@@ -227,12 +227,16 @@ def plotEnsAveVsMu(o,t,muRange,muStep,b,N=2,d=3,ylabel="<n>",figsize=(16,10)):
     h1  = hamiltonian(0,1,N,d)
     
     # Get data points
-    nSteps = int((muRange[1]-muRange[0])/muStep)
+    nSteps = int((muRange[1]-muRange[0])/muStep) + 1
     xData  = np.linspace(muRange[0],muRange[1],nSteps)
     yData  = [ensAve(h0*t+h1*(muRange[0]+n*muStep),o,b) for n in range(nSteps)]
     
+    plt.rc('axes', labelsize=18) #fontsize of the y tick labels
+    plt.rc('xtick', labelsize=12) #fontsize of the x tick labels
+    plt.rc('ytick', labelsize=12) #fontsize of the y tick labels
+    
     # Plot data points
-    plt.figure(figsize=(16,10))
+    plt.figure(figsize=figsize)
     plt.plot(xData,yData,marker="o",linewidth=1,linestyle="dashed")
     plt.xlabel("$\mu$")
     plt.ylabel(ylabel)
