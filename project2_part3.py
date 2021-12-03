@@ -44,17 +44,17 @@ for b in beta:
         data3[ob].append(statistics(data_e,names[ob],i1,i2,step=step,nsigma=nsigma,trail=trail))
         # plot_blocks(data_e,ob,names[ob],i1,i2,step=step,nsigma=nsigma,trail=trail)
 
-# Plot <n> as function of beta
-y1    = 1/N1*np.divide(np.array(data1["W2"])[:,0],beta)
-yerr1 = 1/N1*np.divide(np.array(data1["W2"])[:,1],beta)
-y2    = 1/N2*np.divide(np.array(data2["W2"])[:,0],beta)
-yerr2 = 1/N2*np.divide(np.array(data2["W2"])[:,1],beta)
-y3    = 1/N3*np.divide(np.array(data3["W2"])[:,0],beta)
-yerr3 = 1/N3*np.divide(np.array(data3["W2"])[:,1],beta)
+# Plot N*\chi_\omega as function of beta
+y1    = np.divide(np.array(data1["W2"])[:,0],beta)
+yerr1 = np.divide(np.array(data1["W2"])[:,1],beta)
+y2    = np.divide(np.array(data2["W2"])[:,0],beta)
+yerr2 = np.divide(np.array(data2["W2"])[:,1],beta)
+y3    = np.divide(np.array(data3["W2"])[:,0],beta)
+yerr3 = np.divide(np.array(data3["W2"])[:,1],beta)
 ys = [y1,y2,y3]
 yerrs = [yerr1,yerr2,yerr3]
 l1 , l2 , l3 = "N=16", "N=20", "N=24"
-plot_obs_together(np.array(beta),ys,yerrs,xlabel=r'$\beta$',ylabel="$\chi_{\omega}$",labels=[l1,l2,l3])
+plot_obs_together(np.array(beta),ys,yerrs,xlabel=r'$\beta$',ylabel="$N\chi_{\omega}$",labels=[l1,l2,l3])
 
 # Print data for tabulation in latex
 print('\\\\\n'.join([

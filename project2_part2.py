@@ -17,7 +17,7 @@ data   = {obs[i]:[] for i in range(len(obs)) }
 #NOTE: Do not use -1 for i2 since function is jit wrapped and can't handle negative indexing
 i1, i2, step, nsigma, trail = 999, 10000, -1, 2, 1000
 
-N = 20#10000 - i1 # Know already so don't bother computing
+N = 20
 
 # Loop over input files and compile data points
 for b in beta:
@@ -26,16 +26,10 @@ for b in beta:
         data[ob].append(statistics(data_e,names[ob],i1,i2,step=step,nsigma=nsigma,trail=trail))
         plot_blocks(data_e,ob,names[ob],i1,i2,step=step,nsigma=nsigma,trail=trail)
 
-# Plot <n> as function of beta
+# Plot \chi2_\omega as function of beta
 y    = 1/N*np.divide(np.array(data["W2"])[:,0],beta)
 yerr = 1/N*np.divide(np.array(data["W2"])[:,1],beta)
 plot_obs(np.array(beta),y,yerr,xlabel=r'$\beta$',ylabel="$\chi_{\omega}$")
-
-# Print data for tabulation
-print(beta)
-print("----------")
-print(y)
-print(yerr)
 
 # Print data for tabulation in latex
 print('\\\\\n'.join([
