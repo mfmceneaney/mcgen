@@ -14,7 +14,7 @@ nFiles = 1 # Per mu value or which ever parameter you choose to plot
 beta   = [fl/100 for fl in range(88,96,1)]
 obs    = ["N","E","ET","W","W2","SHops","THops"]
 names  = {obs[i]:i for i in range(len(obs)) }
-obs    = ["W2"]  # reset
+obs    = ["N","W2"]  # reset
 data1   = {obs[i]:[] for i in range(len(obs)) }
 data2   = {obs[i]:[] for i in range(len(obs)) }
 data3   = {obs[i]:[] for i in range(len(obs)) }
@@ -55,6 +55,25 @@ ys = [y1,y2,y3]
 yerrs = [yerr1,yerr2,yerr3]
 l1 , l2 , l3 = "N=16", "N=20", "N=24"
 plot_obs_together(np.array(beta),ys,yerrs,xlabel=r'$\beta$',ylabel="$N\chi_{\omega}$",labels=[l1,l2,l3])
+
+# Print data for tabulation in latex
+print('\\\\\n'.join([
+    " & ".join([
+    f"{np.real(beta[i]):.2f}",
+    f"{np.real(y1[i]):.6f} $\pm$ {np.real(yerr1[i]):.6f}",
+    f"{np.real(y2[i]):.6f} $\pm$ {np.real(yerr2[i]):.6f}",
+    f"{np.real(y3[i]):.6f} $\pm$ {np.real(yerr3[i]):.6f}"
+])
+    for i in range(len(beta))
+]))
+
+# Get \rho=<n>/N^3 particle number density values around the critical point
+y1    = 1/N1**3*np.array(data1["N"])[:,0]
+yerr1 = 1/N1**3*np.array(data1["N"])[:,1]
+y2    = 1/N2**3*np.array(data2["N"])[:,0]
+yerr2 = 1/N2**3*np.array(data2["N"])[:,1]
+y3    = 1/N3**3*np.array(data3["N"])[:,0]
+yerr3 = 1/N3**3*np.array(data3["N"])[:,1]
 
 # Print data for tabulation in latex
 print('\\\\\n'.join([
