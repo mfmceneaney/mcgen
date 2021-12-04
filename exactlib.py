@@ -1,5 +1,6 @@
 import numpy as np
 from numpy.linalg import eig
+from scipy.linalg import expm
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 
@@ -202,11 +203,10 @@ def ensAve(h,o,b=12):
     u  = r[1].T #IMPORTANT: This must be transpose!
     
     # Calculate ensemble average
-    z   = np.trace(np.matmul(np.matmul(u.T,np.exp(-b*hD)),u))
+    z   = np.trace(expm(-b*h))
     ave = 1/z*np.trace(
-        np.matmul(o,
-            np.matmul(np.matmul(u.T,np.exp(-b*hD)),u)
-                 ))
+                        np.matmul(o,expm(-b*h)
+                    ))
     return ave
 
 def plotEnsAveVsMu(o,t,muRange,muStep,b,N=2,d=3,ylabel="<n>",figsize=(8,5)):
